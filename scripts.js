@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchString = document.getElementsByClassName("search-bar")[0].value;
     const encodedSearchString = encodeURIComponent(searchString);
     const response = await fetch(
-      `https://api.artic.edu/api/v1/artworks/search?q=${encodedSearchString}&fields=id,title,artist_title,image_id,style_id,technique_id&page=${pagenum}&limit=16`
+      `https://api.artic.edu/api/v1/artworks/search?q=${encodedSearchString}&fields=id,title,artist_title,image_id,artist_display,medium_display,style_title&page=${pagenum}&limit=16`
     );
     const APIdata = await response.json();
     console.log(APIdata)
@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentArt.artist_title == null) {
         currentArt.artist_title = "N/A";
       }
-      return `<div class="col-sm-3">
-      <div class="card card-flip h-100">
+      return `<div class="col-sm-3 py-3">
+      <div class="card card-flip h-100 ">
       <img src=https://www.artic.edu/iiif/2/${currentArt.image_id}/full/843,/0/default.jpg alt="ArtWork" />
           <div class="card-front text-white bg-dark">
               <div class="card-body">
@@ -51,10 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
           <div class="card-back bg-white">
               <div class="card-body">
-                <h4>${currentArt.style_id}</h4>
-                <h4>${currentArt.technique_id}</h4>
-                <h4>${currentArt.style_id}</h4>
-                <h4>${currentArt.style_id}</h4>
+                <h4><b>Description:</b><br>${currentArt.artist_display}</h4>
+                <h4><b>Medium</b><br>${currentArt.medium_display}</h4>
+                <h4><b>Style</b><br>${currentArt.style_title}</h4>
                   <a href="#" class="btn btn-outline-secondary">Learn More</a>
               </div>
           </div>
